@@ -1,0 +1,74 @@
+/* Görgethető konténer stílusa */
+.reviews-carousel-wrapper {
+    display: flex;
+    overflow-x: auto; /* Vízszintes görgetés engedélyezése */
+    gap: 20px; /* Térköz az értékelés kártyák között */
+    padding: 20px; /* Belső térköz */
+    scroll-snap-type: x mandatory; /* Simább görgetés */
+    -webkit-overflow-scrolling: touch; /* iOS simább görgetés */
+    align-items: stretch; /* Ez biztosítja, hogy a flex elemek kitöltsék a konténer magasságát */
+    min-height: 250px; /* Állítsa be a kívánt minimális magasságot a carouselnek */
+}
+
+.reviews-carousel-wrapper > .elementor-testimonial {
+    flex: 0 0 auto; /* Az elemek ne zsugorodjanak, és ne nyúljanak meg */
+    width: 300px; /* Állítsa be a kártyák szélességét */
+    scroll-snap-align: start; /* Az elemek a görgetés elejéhez igazodnak */
+    height: 100%; /* Ez biztosítja, hogy a kártya kitöltse a szülő (reviews-carousel-wrapper) magasságát */
+}
+
+/* Stílusok az értékelés szövegdobozához */
+.elementor-testimonial__text {
+    max-height: 150px; /* Állítsa be a kívánt maximális magasságot */
+    overflow-y: auto; /* Engedélyezi a függőleges görgetést, ha szükséges */
+    padding: 15px; /* Belső térköz a szöveg körül */
+    border-radius: 8px; /* Lekerekített sarkok */
+    background-color: #f9f9f9; /* Világos háttérszín */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék */
+    margin-bottom: 15px; /* Térköz az alsó részhez */
+    line-height: 1.6; /* Sor magasság a jobb olvashatóságért */
+    color: #333; /* Sötétebb szövegszín */
+}
+
+/* Stílusok az értékelés konténeréhez, hogy jobban illeszkedjen */
+.elementor-testimonial {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%;  Ezt feljebb vittük a .reviews-carousel-wrapper > .elementor-testimonial-ba */
+    justify-content: space-between; /* Elosztja a tartalmat függőlegesen */
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Stílusok az értékelés láblécéhez */
+.elementor-testimonial__footer {
+    display: flex;
+    align-items: center;
+    margin-top: auto; /* A láblécet az aljára tolja */
+}
+
+/* Stílusok az értékelő képéhez */
+.elementor-testimonial__image img {
+    width: 60px; /* Kisebb kép */
+    height: 60px; /* Kisebb kép */
+    border-radius: 50%; /* Kör alakú kép */
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #007bff; /* Kék keret a kép körül */
+}
+
+/* Stílusok az értékelő nevéhez és címéhez */
+.elementor-testimonial__cite {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff; /* Kék szín a névnek */
+}
+
+.elementor-testimonial__title {
+    font-size: 0.9em;
+    color: #666;
+    display: block; /* Új sorba helyezi a címet */
+}

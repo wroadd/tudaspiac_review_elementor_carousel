@@ -1,0 +1,56 @@
+<div id="custom-reviews-container" class="reviews-carousel-wrapper">
+    <!-- Az értékelések ide kerülnek dinamikusan -->
+</div>
+
+<script>
+    async function loadReviews() {
+        const reviewsContainer = document.getElementById('custom-reviews-container');
+        if (!reviewsContainer) {
+            console.error('A custom-reviews-container elem nem található.');
+            return;
+        }
+
+        try {
+            // Lekérdezés a saját szerveroldali proxy-tól
+            // FONTOS: Cserélje ki ezt az URL-t a saját proxy scriptjének elérési útjára!
+            const response = await fetch('https://okosotthon.guru/tes/proxy-reviews.php'); 
+            const reviewsData = await response.json();
+
+            if (reviewsData.error) {
+                console.error('Hiba a proxy-tól:', reviewsData.error);
+                reviewsContainer.innerHTML = '&lt;p&gt;Nem sikerült betölteni az értékeléseket. Kérjük, próbálja meg később.&lt;/p&gt;';
+                return;
+            }
+
+            reviewsData.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.classList.add('elementor-testimonial');
+
+                const imageUrl = review.imageUrl || 'https://okosotthon.guru/wp-content/plugins/elementor/assets/images/placeholder.png';
+
+                reviewCard.innerHTML = `
+                    &lt;div class="elementor-testimonial__content"&gt;
+                        &lt;div class="elementor-testimonial__text"&gt;
+                            ${review.text}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="elementor-testimonial__footer"&gt;
+                        &lt;div class="elementor-testimonial__image"&gt;
+                            &lt;img decoding="async" src="${imageUrl}" alt="${review.name}"&gt;
+                        &lt;/div&gt;
+                        &lt;cite class="elementor-testimonial__cite"&gt;
+                            &lt;span class="elementor-testimonial__name"&gt;${review.name}&lt;/span&gt;
+                            &lt;span class="elementor-testimonial__title"&gt;${review.date}&lt;/span&gt;
+                        &lt;/cite&gt;
+                    &lt;/div&gt;
+                `;
+                reviewsContainer.appendChild(reviewCard);
+            });
+        } catch (error) {
+            console.error('Hiba az értékelések betöltésekor:', error);
+            reviewsContainer.innerHTML = '&lt;p&gt;Hiba történt az értékelések betöltésekor.&lt;/p&gt;';
+        }
+    }
+
+    loadReviews(); // Az oldal betöltésekor hívja meg a függvényt
+</script>
